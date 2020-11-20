@@ -3,16 +3,19 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		EA7305C5256780A200A3EA61 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7305C4256780A200A3EA61 /* AppDelegate.swift */; };
 		EA7305C7256780A200A3EA61 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7305C6256780A200A3EA61 /* SceneDelegate.swift */; };
-		EA7305C9256780A200A3EA61 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7305C8256780A200A3EA61 /* ViewController.swift */; };
 		EA7305CC256780A200A3EA61 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA7305CA256780A200A3EA61 /* Main.storyboard */; };
 		EA7305CE256780A400A3EA61 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA7305CD256780A400A3EA61 /* Assets.xcassets */; };
 		EA7305D1256780A400A3EA61 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA7305CF256780A400A3EA61 /* LaunchScreen.storyboard */; };
+		EA73064925678D9D00A3EA61 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA73064825678D9D00A3EA61 /* LaunchViewController.swift */; };
+		EA73064D25678FB600A3EA61 /* MusicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA73064B25678FB600A3EA61 /* MusicViewController.swift */; };
+		EA73064E25678FB600A3EA61 /* MusicViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA73064C25678FB600A3EA61 /* MusicViewController.xib */; };
+		EA730653256790B600A3EA61 /* MusicModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA730652256790B600A3EA61 /* MusicModel.swift */; };
 		EB7D3F2BEAB1FFE3601CEB19 /* Pods_MusicPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01FACEAC9E1CA33B44501D7D /* Pods_MusicPlayer.framework */; };
 /* End PBXBuildFile section */
 
@@ -23,11 +26,14 @@
 		EA7305C1256780A200A3EA61 /* MusicPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA7305C4256780A200A3EA61 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EA7305C6256780A200A3EA61 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		EA7305C8256780A200A3EA61 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		EA7305CB256780A200A3EA61 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EA7305CD256780A400A3EA61 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EA7305D0256780A400A3EA61 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EA7305D2256780A400A3EA61 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EA73064825678D9D00A3EA61 /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
+		EA73064B25678FB600A3EA61 /* MusicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicViewController.swift; sourceTree = "<group>"; };
+		EA73064C25678FB600A3EA61 /* MusicViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MusicViewController.xib; sourceTree = "<group>"; };
+		EA730652256790B600A3EA61 /* MusicModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,7 +54,6 @@
 				2AA4EBF1D2287A28546FF178 /* Pods-MusicPlayer.debug.xcconfig */,
 				CD389F912DDDB25CDCA2B30C /* Pods-MusicPlayer.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -81,6 +86,7 @@
 		EA7305C3256780A200A3EA61 /* MusicPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				EA730651256790A700A3EA61 /* Model */,
 				EA7305DB256780F100A3EA61 /* View */,
 				EA7305C4256780A200A3EA61 /* AppDelegate.swift */,
 				EA7305C6256780A200A3EA61 /* SceneDelegate.swift */,
@@ -95,9 +101,27 @@
 		EA7305DB256780F100A3EA61 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				EA7305C8256780A200A3EA61 /* ViewController.swift */,
+				EA7305E7256782F300A3EA61 /* Splash */,
+				EA73064B25678FB600A3EA61 /* MusicViewController.swift */,
+				EA73064C25678FB600A3EA61 /* MusicViewController.xib */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		EA7305E7256782F300A3EA61 /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				EA73064825678D9D00A3EA61 /* LaunchViewController.swift */,
+			);
+			path = Splash;
+			sourceTree = "<group>";
+		};
+		EA730651256790A700A3EA61 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				EA730652256790B600A3EA61 /* MusicModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -159,6 +183,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA73064E25678FB600A3EA61 /* MusicViewController.xib in Resources */,
 				EA7305D1256780A400A3EA61 /* LaunchScreen.storyboard in Resources */,
 				EA7305CE256780A400A3EA61 /* Assets.xcassets in Resources */,
 				EA7305CC256780A200A3EA61 /* Main.storyboard in Resources */,
@@ -214,9 +239,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA7305C9256780A200A3EA61 /* ViewController.swift in Sources */,
+				EA730653256790B600A3EA61 /* MusicModel.swift in Sources */,
+				EA73064D25678FB600A3EA61 /* MusicViewController.swift in Sources */,
 				EA7305C5256780A200A3EA61 /* AppDelegate.swift in Sources */,
 				EA7305C7256780A200A3EA61 /* SceneDelegate.swift in Sources */,
+				EA73064925678D9D00A3EA61 /* LaunchViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
