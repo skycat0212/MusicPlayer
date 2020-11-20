@@ -16,6 +16,7 @@
 		EA73064D25678FB600A3EA61 /* MusicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA73064B25678FB600A3EA61 /* MusicViewController.swift */; };
 		EA73064E25678FB600A3EA61 /* MusicViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA73064C25678FB600A3EA61 /* MusicViewController.xib */; };
 		EA730653256790B600A3EA61 /* MusicModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA730652256790B600A3EA61 /* MusicModel.swift */; };
+		EA7306592567917400A3EA61 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7306582567917400A3EA61 /* Network.swift */; };
 		EB7D3F2BEAB1FFE3601CEB19 /* Pods_MusicPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01FACEAC9E1CA33B44501D7D /* Pods_MusicPlayer.framework */; };
 /* End PBXBuildFile section */
 
@@ -34,6 +35,7 @@
 		EA73064B25678FB600A3EA61 /* MusicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicViewController.swift; sourceTree = "<group>"; };
 		EA73064C25678FB600A3EA61 /* MusicViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MusicViewController.xib; sourceTree = "<group>"; };
 		EA730652256790B600A3EA61 /* MusicModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicModel.swift; sourceTree = "<group>"; };
+		EA7306582567917400A3EA61 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +88,7 @@
 		EA7305C3256780A200A3EA61 /* MusicPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				EA7306572567916600A3EA61 /* Network */,
 				EA730651256790A700A3EA61 /* Model */,
 				EA7305DB256780F100A3EA61 /* View */,
 				EA7305C4256780A200A3EA61 /* AppDelegate.swift */,
@@ -122,6 +125,14 @@
 				EA730652256790B600A3EA61 /* MusicModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		EA7306572567916600A3EA61 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				EA7306582567917400A3EA61 /* Network.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -241,6 +252,7 @@
 			files = (
 				EA730653256790B600A3EA61 /* MusicModel.swift in Sources */,
 				EA73064D25678FB600A3EA61 /* MusicViewController.swift in Sources */,
+				EA7306592567917400A3EA61 /* Network.swift in Sources */,
 				EA7305C5256780A200A3EA61 /* AppDelegate.swift in Sources */,
 				EA7305C7256780A200A3EA61 /* SceneDelegate.swift in Sources */,
 				EA73064925678D9D00A3EA61 /* LaunchViewController.swift in Sources */,
@@ -394,7 +406,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = U53BLS7M93;
 				INFOPLIST_FILE = MusicPlayer/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -415,7 +427,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = U53BLS7M93;
 				INFOPLIST_FILE = MusicPlayer/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
