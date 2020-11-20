@@ -17,18 +17,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sRd-3M-CAG">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sRd-3M-CAG">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="WOG-vg-bDU"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="sRd-3M-CAG" secondAttribute="trailing" id="NKo-qg-Mhu"/>
-                            <constraint firstItem="sRd-3M-CAG" firstAttribute="top" secondItem="ycR-x3-11k" secondAttribute="top" id="S1C-sq-cxw"/>
-                            <constraint firstItem="sRd-3M-CAG" firstAttribute="leading" secondItem="ycR-x3-11k" secondAttribute="leading" id="iy0-gw-4Ys"/>
-                            <constraint firstAttribute="bottom" secondItem="sRd-3M-CAG" secondAttribute="bottom" id="uI8-Qd-6EJ"/>
-                        </constraints>
                     </view>
                     <connections>
                         <outlet property="launchImageView" destination="sRd-3M-CAG" id="cf1-cY-V4n"/>

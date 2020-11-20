@@ -7,6 +7,7 @@
 
 import UIKit
 import SDWebImage
+import SnapKit
 
 class LaunchViewController: UIViewController {
     @IBOutlet weak var launchImageView: UIImageView!
@@ -14,6 +15,14 @@ class LaunchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        launchImageView.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.bottom.equalToSuperview()
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+        }
+        
+        // MARK: - iPhone 8 Series Layout Check
         let url = URL(string: "https://grepp-cloudfront.s3.ap-northeast-2.amazonaws.com/programmers_imgs/competition-imgs/2020-Flo-challenge/FLO_Splash-Img3x(1242x2688).png")
         launchImageView.sd_setImage(with: url, completed: nil)
         
