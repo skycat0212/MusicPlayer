@@ -36,7 +36,7 @@ class MusicViewController: UIViewController {
         singerLabel.textColor = .white
         
         songTitleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(100)
+            make.top.equalToSuperview().offset(50)
             make.centerX.equalToSuperview()
         }
         
@@ -46,10 +46,9 @@ class MusicViewController: UIViewController {
         }
 
         albumImageView.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalToSuperview()
             make.leading.equalToSuperview().offset(60)
             make.trailing.equalToSuperview().offset(-60)
+            make.top.equalTo(singerLabel.snp.bottom).offset(-self.view.bounds.height / 2)
         }
     }
     
