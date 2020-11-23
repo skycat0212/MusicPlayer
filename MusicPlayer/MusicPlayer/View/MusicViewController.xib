@@ -14,6 +14,7 @@
                 <outlet property="albumImageView" destination="ZhN-lk-MR5" id="ANy-kC-Fqn"/>
                 <outlet property="maxLabel" destination="5bD-I5-EFk" id="cg5-fd-YG9"/>
                 <outlet property="minLabel" destination="V9c-4C-8Q5" id="eOR-gx-EVa"/>
+                <outlet property="playButton" destination="C0Q-W1-cOe" id="fnR-kV-lC8"/>
                 <outlet property="singerLabel" destination="viA-BQ-NTd" id="Gcl-kr-eKt"/>
                 <outlet property="songTitleLabel" destination="exX-WO-cSj" id="adQ-8c-rDj"/>
                 <outlet property="timeSlider" destination="kX3-XI-LCV" id="mcf-nd-Fm5"/>
@@ -61,6 +62,14 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C0Q-W1-cOe">
+                    <rect key="frame" x="183" y="780" width="46" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="Button"/>
+                    <connections>
+                        <action selector="playAudioClick:" destination="-1" eventType="touchUpInside" id="KXM-DQ-AhF"/>
+                    </connections>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>

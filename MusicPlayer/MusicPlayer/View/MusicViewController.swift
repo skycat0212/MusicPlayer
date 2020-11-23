@@ -16,8 +16,11 @@ class MusicViewController: UIViewController {
     @IBOutlet weak var timeSlider: UISlider!
     @IBOutlet weak var minLabel: UILabel!
     @IBOutlet weak var maxLabel: UILabel!
+    @IBOutlet weak var playButton: UIButton!
     
     private var audioPlayer: AVAudioPlayer?
+    var isPlay = false
+    var time: TimeInterval = 0
     
     private var singer = ""
     private var album = ""
@@ -74,6 +77,14 @@ class MusicViewController: UIViewController {
             make.top.equalTo(timeSlider).offset(50)
             make.trailing.equalToSuperview().offset(-60)
         }
+        
+        playButton.setImage(UIImage(named: "play"), for: .normal)
+        playButton.snp.makeConstraints { make in
+            make.bottom.equalToSuperview().offset(-100)
+            make.top.equalTo(timeSlider.snp.bottom).offset(50)
+            make.leading.equalToSuperview().offset(self.view.bounds.width / 2 - 25)
+            make.trailing.equalToSuperview().offset(-self.view.bounds.width / 2 + 25)
+        }
     }
     
     private func dataLoad() {
@@ -105,7 +116,6 @@ class MusicViewController: UIViewController {
             let second = Int(time) % 60
             
             self.setTimeLabel(minute: minute, second: second)
-            
         }
     }
     
@@ -119,6 +129,52 @@ class MusicViewController: UIViewController {
             formatter.dateFormat = "mm:ss"
             self.minLabel.text = "00:00"
             self.maxLabel.text = "\(formatter.string(from: date))"
+        }
+    }
+    
+    // MARK: - Audio 재생 관련 함수
+    @IBAction func playAudioClick(_ sender: UIButton) {
+        guard let url = URL(string: file) else { return }
+        if sender.currentImage == UIImage(named: "play") {
+            print("starttime: \(time)")
+            downloadFileFromUrl(url: url)
+            playButton.setImage(UIImage(named: "pause"), for: .normal)
+        } else {
+            audioPlayer?.stop()
+            time = audioPlayer!.currentTime
+            print("pausetime: \(time)")
+            playButton.setImage(UIImage(named: "play"), for: .normal)
+        }
+    }
+    
+    
+    private func downloadFileFromUrl(url: URL) {
+        var downloadTask: URLSessionDownloadTask
+        downloadTask = URLSession.shared.downloadTask(with: url) { (url, response, error) in
+            if let error = error {
+                print("Download Error: \(error)")
+            } else {
+                guard let url = url else { return }
+                self.play(url: url)
+            }
+        }
+        
+        downloadTask.resume()
+    }
+    
+    private func play(url: URL) {
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: url)
+            if time == 0 {
+                audioPlayer?.play()
+            } else {
+                audioPlayer?.currentTime = self.time
+                audioPlayer?.play(atTime: audioPlayer!.deviceCurrentTime)
+            }
+        } catch let error as NSError {
+            print("Play Error: \(error)")
+        } catch {
+            print("AVAudioPlayer init failed")
         }
     }
 
