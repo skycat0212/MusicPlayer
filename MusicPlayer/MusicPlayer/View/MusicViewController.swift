@@ -13,13 +13,12 @@ class MusicViewController: UIViewController {
     @IBOutlet weak var songTitleLabel: UILabel!
     @IBOutlet weak var singerLabel: UILabel!
     @IBOutlet weak var albumImageView: UIImageView!
-    @IBOutlet weak var timeSlider: UISlider!
     @IBOutlet weak var minLabel: UILabel!
     @IBOutlet weak var maxLabel: UILabel!
     @IBOutlet weak var playButton: UIButton!
+    @IBOutlet weak var progressView: UIProgressView!
     
     private var audioPlayer: AVAudioPlayer?
-    var isPlay = false
     var time: TimeInterval = 0
     
     private var singer = ""
@@ -62,26 +61,27 @@ class MusicViewController: UIViewController {
             make.top.equalTo(singerLabel.snp.bottom).offset(-self.view.bounds.height / 2)
         }
         
-        timeSlider.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().offset(-200)
+        progressView.progress = 0
+        progressView.snp.makeConstraints { make in
+            make.bottom.equalToSuperview().offset(-self.view.bounds.height / 3)
             make.leading.equalToSuperview().offset(60)
             make.trailing.equalToSuperview().offset(-60)
         }
         
         minLabel.snp.makeConstraints { make in
-            make.top.equalTo(timeSlider).offset(50)
+            make.top.equalTo(progressView).offset(50)
             make.leading.equalToSuperview().offset(60)
         }
         
         maxLabel.snp.makeConstraints { make in
-            make.top.equalTo(timeSlider).offset(50)
+            make.top.equalTo(progressView).offset(50)
             make.trailing.equalToSuperview().offset(-60)
         }
         
         playButton.setImage(UIImage(named: "play"), for: .normal)
         playButton.snp.makeConstraints { make in
             make.bottom.equalToSuperview().offset(-100)
-            make.top.equalTo(timeSlider.snp.bottom).offset(50)
+            make.top.equalTo(progressView).offset(150)
             make.leading.equalToSuperview().offset(self.view.bounds.width / 2 - 25)
             make.trailing.equalToSuperview().offset(-self.view.bounds.width / 2 + 25)
         }
@@ -108,14 +108,20 @@ class MusicViewController: UIViewController {
             self.albumImageView.sd_setImage(with: URL(string: image), completed: nil)
             print("lyrics: \(self.lyricsArr)")
             
-            self.timeSlider.minimumValue = Float(0)
-            self.timeSlider.maximumValue = Float(self.duration)
-            
-            let time = self.timeSlider.maximumValue
+            let time = self.duration
             let minute = Int(time) / 60
             let second = Int(time) % 60
             
-            self.setTimeLabel(minute: minute, second: second)
+            var components = DateComponents()
+            components.setValue(minute, for: .minute)
+            components.setValue(second, for: .second)
+            
+            if let date = Calendar.current.date(from: components) {
+                let formatter = DateFormatter()
+                formatter.dateFormat = "mm:ss"
+                self.minLabel.text = "00:00"
+                self.maxLabel.text = "\(formatter.string(from: date))"
+            }
         }
     }
     
@@ -127,8 +133,8 @@ class MusicViewController: UIViewController {
         if let date = Calendar.current.date(from: components) {
             let formatter = DateFormatter()
             formatter.dateFormat = "mm:ss"
-            self.minLabel.text = "00:00"
-            self.maxLabel.text = "\(formatter.string(from: date))"
+            self.minLabel.text = "\(formatter.string(from: date))"
+//            self.maxLabel.text = "\(formatter.string(from: date))"
         }
     }
     
@@ -165,11 +171,17 @@ class MusicViewController: UIViewController {
     private func play(url: URL) {
         do {
             audioPlayer = try AVAudioPlayer(contentsOf: url)
+            guard let audioPlayer = audioPlayer else { return }
             if time == 0 {
-                audioPlayer?.play()
+                audioPlayer.play()
             } else {
-                audioPlayer?.currentTime = self.time
-                audioPlayer?.play(atTime: audioPlayer!.deviceCurrentTime)
+                audioPlayer.currentTime = self.time
+                audioPlayer.play(atTime: audioPlayer.deviceCurrentTime)
+            }
+            
+            DispatchQueue.main.async {
+                Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.updateProgressView), userInfo: nil, repeats: true)
+//                self.progressView.setProgress(Float(audioPlayer.currentTime) / Float(audioPlayer.duration), animated: true)
             }
         } catch let error as NSError {
             print("Play Error: \(error)")
@@ -178,4 +190,23 @@ class MusicViewController: UIViewController {
         }
     }
 
+    @objc func updateProgressView() {
+        guard let audioPlayer = audioPlayer else { return }
+        if audioPlayer.isPlaying {
+            progressView.setProgress(Float(audioPlayer.currentTime) / Float(audioPlayer.duration), animated: true)
+            let minute = Int(audioPlayer.currentTime) / 60
+            let second = Int(audioPlayer.currentTime) % 60
+            
+            setTimeLabel(minute: minute, second: second)
+        } else {
+            playButton.setImage(UIImage(named: "play"), for: .normal)
+        }
+    }
+}
+
+extension MusicViewController: AVAudioPlayerDelegate {
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        progressView.progress = 0
+        minLabel.text = "00:00"
+    }
 }
