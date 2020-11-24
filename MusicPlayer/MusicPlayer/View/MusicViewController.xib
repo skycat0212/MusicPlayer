@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MusicViewController" customModule="MusicPlayer" customModuleProvider="target">
             <connections>
                 <outlet property="albumImageView" destination="ZhN-lk-MR5" id="ANy-kC-Fqn"/>
+                <outlet property="lyricsTableView" destination="yKE-sD-nj2" id="ObG-W1-HHE"/>
                 <outlet property="maxLabel" destination="5bD-I5-EFk" id="cg5-fd-YG9"/>
                 <outlet property="minLabel" destination="V9c-4C-8Q5" id="eOR-gx-EVa"/>
                 <outlet property="playButton" destination="C0Q-W1-cOe" id="fnR-kV-lC8"/>
@@ -70,13 +71,29 @@
                     <rect key="frame" x="132" y="541" width="150" height="4"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </progressView>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="7xU-1n-1rW">
+                    <rect key="frame" x="87" y="428" width="240" height="96"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <color key="textColor" systemColor="labelColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="yKE-sD-nj2">
+                    <rect key="frame" x="87" y="417" width="240" height="116"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </tableView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-            <point key="canvasLocation" x="32" y="74"/>
+            <point key="canvasLocation" x="31.884057971014496" y="73.660714285714278"/>
         </view>
     </objects>
     <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

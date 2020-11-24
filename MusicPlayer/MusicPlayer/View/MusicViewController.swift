@@ -17,6 +17,7 @@ class MusicViewController: UIViewController {
     @IBOutlet weak var maxLabel: UILabel!
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var lyricsTableView: UITableView!
     
     private var audioPlayer: AVAudioPlayer?
     var time: TimeInterval = 0
@@ -29,6 +30,7 @@ class MusicViewController: UIViewController {
     private var file = ""
     private var lyrics = ""
     private var lyricsArr: [String] = []
+    private var lyricsDict: [(Float, String)] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,6 +68,13 @@ class MusicViewController: UIViewController {
             make.leading.equalTo(80)
             make.trailing.equalTo(-80)
             make.height.equalTo(self.albumImageView.snp.width)
+        }
+        
+        lyricsTableView.snp.makeConstraints { make in
+            make.top.equalTo(albumImageView.snp.bottom)
+            make.leading.equalTo(80)
+            make.trailing.equalTo(-80)
+            make.bottom.equalTo(progressView.snp.top).offset(-20)
         }
         
         progressView.progress = 0
@@ -108,7 +117,14 @@ class MusicViewController: UIViewController {
             self.album = album
             self.duration = duration
             self.file = file
-            self.lyricsArr = lyrics.components(separatedBy: "\n").map { String($0) }
+            self.lyricsArr = lyrics.components(separatedBy: ["[", "]", "\n"]).map { String($0) }
+            for i in 0..<self.lyricsArr.count {
+                if i % 3 == 0 { continue }
+                if i % 3 == 2 {
+                    let num = self.lyricsArr[i-1].split(separator: ":").map { Float($0)! }
+                    self.lyricsDict.append((num[0] * 60 + num[1] + num[2] / 1000, self.lyricsArr[i]))
+                }
+            }
             
             self.singerLabel.text = singer
             self.songTitleLabel.text = """
@@ -117,6 +133,7 @@ class MusicViewController: UIViewController {
                                         """
             self.albumImageView.sd_setImage(with: URL(string: image), completed: nil)
             print("lyrics: \(self.lyricsArr)")
+            print("lyricsDict: \(self.lyricsDict)")
             
             let time = self.duration
             let minute = Int(time) / 60
@@ -182,12 +199,9 @@ class MusicViewController: UIViewController {
         do {
             audioPlayer = try AVAudioPlayer(contentsOf: url)
             guard let audioPlayer = audioPlayer else { return }
-            if time == 0 {
-                audioPlayer.play()
-            } else {
-                audioPlayer.currentTime = self.time
-                audioPlayer.play(atTime: audioPlayer.deviceCurrentTime)
-            }
+            
+            audioPlayer.currentTime = self.time
+            audioPlayer.play(atTime: audioPlayer.deviceCurrentTime)
             
             DispatchQueue.main.async {
                 Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.updateProgressView), userInfo: nil, repeats: true)
@@ -209,7 +223,7 @@ class MusicViewController: UIViewController {
             
             setTimeLabel(minute: minute, second: second)
         } else {
-            playButton.setImage(UIImage(named: "play"), for: .normal)
+//            playButton.setImage(UIImage(named: "play"), for: .normal)
         }
     }
 }
