@@ -33,6 +33,11 @@ class MusicViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print("bound width: \(UIScreen.main.nativeBounds.width)")
+        print("bound height: \(UIScreen.main.nativeBounds.height)")
+        print("frame width: \(self.view.frame.width)")
+        print("frame height: \(self.view.frame.height)")
+        
         makeConstraint()
         dataLoad()
         // Do any additional setup after loading the view.
@@ -46,44 +51,46 @@ class MusicViewController: UIViewController {
 //        maxLabel.textColor = .white
         
         songTitleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(50)
+            make.top.equalTo(self.view.safeAreaLayoutGuide).offset(30)
             make.centerX.equalToSuperview()
         }
         
         singerLabel.snp.makeConstraints { make in
             make.top.equalTo(songTitleLabel.snp.bottom).offset(20)
             make.centerX.equalToSuperview()
+            make.height.equalTo(singerLabel.snp.height)
         }
 
         albumImageView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(60)
-            make.trailing.equalToSuperview().offset(-60)
-            make.top.equalTo(singerLabel.snp.bottom).offset(-self.view.bounds.height / 2)
+            make.top.equalTo(singerLabel.snp.bottom).offset(20)
+            make.leading.equalTo(80)
+            make.trailing.equalTo(-80)
+            make.height.equalTo(self.albumImageView.snp.width)
         }
         
         progressView.progress = 0
         progressView.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().offset(-self.view.bounds.height / 3)
-            make.leading.equalToSuperview().offset(60)
-            make.trailing.equalToSuperview().offset(-60)
+            make.top.equalTo(albumImageView.snp.bottom).offset(self.view.bounds.width / 4)
+            make.leading.equalTo(60)
+            make.trailing.equalTo(-60)
         }
         
         minLabel.snp.makeConstraints { make in
-            make.top.equalTo(progressView).offset(50)
+            make.top.equalTo(progressView.snp.bottom).offset(20)
             make.leading.equalToSuperview().offset(60)
         }
         
         maxLabel.snp.makeConstraints { make in
-            make.top.equalTo(progressView).offset(50)
+            make.top.equalTo(progressView.snp.bottom).offset(20)
             make.trailing.equalToSuperview().offset(-60)
         }
         
         playButton.setImage(UIImage(named: "play"), for: .normal)
         playButton.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().offset(-100)
-            make.top.equalTo(progressView).offset(150)
-            make.leading.equalToSuperview().offset(self.view.bounds.width / 2 - 25)
-            make.trailing.equalToSuperview().offset(-self.view.bounds.width / 2 + 25)
+            make.bottom.equalToSuperview().offset(-50)
+            make.top.equalTo(playButton.snp.bottom).offset(-50)
+            make.centerX.equalTo(self.view.safeAreaLayoutGuide)
+            make.width.equalTo(self.playButton.snp.height)
         }
     }
     
@@ -104,7 +111,10 @@ class MusicViewController: UIViewController {
             self.lyricsArr = lyrics.components(separatedBy: "\n").map { String($0) }
             
             self.singerLabel.text = singer
-            self.songTitleLabel.text = songTitle
+            self.songTitleLabel.text = """
+                                        \(songTitle)
+                                        (\(album))
+                                        """
             self.albumImageView.sd_setImage(with: URL(string: image), completed: nil)
             print("lyrics: \(self.lyricsArr)")
             
