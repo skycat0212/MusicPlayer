@@ -70,7 +70,7 @@ class MusicViewController: UIViewController {
         
         progressView.progress = 0
         progressView.snp.makeConstraints { make in
-            make.top.equalTo(albumImageView.snp.bottom).offset(self.view.bounds.width / 4)
+            make.bottom.equalTo(self.view.safeAreaLayoutGuide).offset(-self.view.bounds.height / 5)
             make.leading.equalTo(60)
             make.trailing.equalTo(-60)
         }
