@@ -40,9 +40,14 @@ class MusicViewController: UIViewController {
         print("frame width: \(self.view.frame.width)")
         print("frame height: \(self.view.frame.height)")
         
+        lyricsTableView.dataSource = self
+        lyricsTableView.delegate = self
+        
         makeConstraint()
         dataLoad()
-        // Do any additional setup after loading the view.
+        
+        let nibName = UINib(nibName: "LyricsTableViewCell", bundle: nil)
+        lyricsTableView.register(nibName, forCellReuseIdentifier: "LyricsTableViewCell")
     }
     
     private func makeConstraint() {
@@ -72,8 +77,8 @@ class MusicViewController: UIViewController {
         
         lyricsTableView.snp.makeConstraints { make in
             make.top.equalTo(albumImageView.snp.bottom)
-            make.leading.equalTo(80)
-            make.trailing.equalTo(-80)
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
             make.bottom.equalTo(progressView.snp.top).offset(-20)
         }
         
@@ -125,6 +130,8 @@ class MusicViewController: UIViewController {
                     self.lyricsDict.append((num[0] * 60 + num[1] + num[2] / 1000, self.lyricsArr[i]))
                 }
             }
+            
+            self.lyricsTableView.reloadData()
             
             self.singerLabel.text = singer
             self.songTitleLabel.text = """
@@ -232,5 +239,27 @@ extension MusicViewController: AVAudioPlayerDelegate {
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         progressView.progress = 0
         minLabel.text = "00:00"
+    }
+}
+
+extension MusicViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return lyricsDict.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "LyricsTableViewCell", for: indexPath) as? LyricsTableViewCell else {
+            return UITableViewCell()
+        }
+        
+        cell.lyricsLabel.text = lyricsDict[indexPath.row].1
+        
+        return cell
+    }
+}
+
+extension MusicViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return self.lyricsTableView.frame.size.height / 2
     }
 }

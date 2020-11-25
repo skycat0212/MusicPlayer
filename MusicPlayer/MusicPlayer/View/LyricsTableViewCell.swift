@@ -8,7 +8,8 @@
 import UIKit
 
 class LyricsTableViewCell: UITableViewCell {
-
+    @IBOutlet weak var lyricsLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
