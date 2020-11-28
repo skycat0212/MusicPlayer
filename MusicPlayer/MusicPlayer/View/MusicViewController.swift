@@ -22,10 +22,10 @@ class MusicViewController: UIViewController {
     private var audioPlayer: AVAudioPlayer?
     var time: TimeInterval = 0
     
-    private var singer = ""
-    private var album = ""
-    private var songTitle = ""
-    private var duration: Double = 0
+//    private var singer = ""
+//    private var album = ""
+//    private var songTitle = ""
+//    private var duration: Double = 0
     private var image = ""
     private var file = ""
     private var lyrics = ""
@@ -119,8 +119,8 @@ class MusicViewController: UIViewController {
                   let file = response.file,
                   let lyrics = response.lyrics else { return }
             
-            self.album = album
-            self.duration = duration
+//            self.album = album
+//            self.duration = duration
             self.file = file
             self.lyricsArr = lyrics.components(separatedBy: ["[", "]", "\n"]).map { String($0) }
             for i in 0..<self.lyricsArr.count {
@@ -142,7 +142,7 @@ class MusicViewController: UIViewController {
             print("lyrics: \(self.lyricsArr)")
             print("lyricsDict: \(self.lyricsDict)")
             
-            let time = self.duration
+            let time = duration
             let minute = Int(time) / 60
             let second = Int(time) % 60
             
